@@ -1,0 +1,61 @@
+.detalheslivro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 1024px;
+    margin: auto;
+}
+
+.container-detalhes__descricoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: self-start;
+}
+
+.detalheslivro .detalheslivro__container-detalhes {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.container-detalhes__descricoes-grupo-opcoes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.descricoes-titulo {
+    margin: 0;
+    padding: 0;
+    color: #002F52;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
+}
+
+.container-detalhes__descricoes p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000D9;
+    line-height: 27px;
+}
+
+.container-detalhes__descricoes .descricoes-autor,
+.container-detalhes__descricoes span {
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.detalheslivro .detalheslivro__container-detalhes figure img {
+    height: 100%;
+    width: 100%;
+    box-shadow: 4px 4px 16px 0px #00000026;
+}
+
+.detalheslivro .detalheslivro__sobre {
+    display: flex;
+    flex-direction: column;
+    margin: 24px auto;
+}

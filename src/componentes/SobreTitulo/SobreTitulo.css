@@ -1,0 +1,15 @@
+.sobre-titulo {
+    max-width: 200px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    color: #002F52;
+    border-bottom: 1px solid #EB9B00;
+    text-align: center;
+}
+
+.detalheslivro__sobre-texto {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .85);
+}
