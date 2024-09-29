@@ -12,7 +12,8 @@ interface LivrosDestaqueProps {
 const LivrosDestaque = ({ livros }: LivrosDestaqueProps) => {
 
     const [selecionado, selecionarLivro] = useState<ILivro>(livros[0])
-    const valorMinimo = selecionado ? Math.min(...selecionado.opcoesCompra.map(op => op.preco)) : 0
+    const valorMinimo = selecionado ? Math.min(...selecionado.opcoesCompra.map(op => op.preco)) : 0 ;
+
     return (
         <section className="LivrosDestaque">
             <div>

@@ -73,17 +73,25 @@ export const obterProdutosPorCategoria = async (
   return data;
 };
 
-export const obterLivroPorSlug = async (slug: string): Promise<ILivro> => {
+export const obterLivroPorSlug = async (slug: string): Promise<ILivro | null> => {
   const { data } = await http.get<ILivro[]>("/livros", {
     params: {
       slug,
     },
   });
 
+  if (data.length === 0) {
+    return null;
+  }
+
   return data[0];
 };
 
-export const obterAutorPorID = async (autorId: number): Promise<IAutor> => {
-  const { data } = await http.get<IAutor>(`/autores/${autorId}`);
-  return data;
+export const obterAutorPorID = async (autorId: number) => {
+  try {
+    const { data } = await http.get<IAutor>(`/autores/${autorId}`);
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
 };

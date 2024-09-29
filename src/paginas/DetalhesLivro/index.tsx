@@ -9,13 +9,26 @@ import { formatador } from "../../utils/formatador-moeda";
 import "./DetalhesLivro.css";
 import SobreTitulo from "../../componentes/SobreTitulo";
 import SobreAutor from "../../componentes/SobreAutor";
+import { useState } from "react";
+import { AxiosError } from "axios";
 
 const DetalhesLivro = () => {
+  const [quantidade, setQuatidade] = useState<number>(0);
   const { slug } = useParams();
-  const { data: livro, isLoading } = useQuery<ILivro>({
+
+  const { data: livro, isLoading, error } = useQuery<ILivro | null, AxiosError>({
     queryKey: ['livro'],
     queryFn: () => obterLivroPorSlug(slug!)
   })
+
+  if (livro === null) {
+    return <h1>Livro não encontrado!</h1>
+  }
+
+  if(error){
+    console.log(error.message)
+    return <p>Ops, Algo de errado ocorreu!</p>
+  }
 
   if (isLoading || !livro) {
     return (<Loader />)
@@ -41,7 +54,10 @@ const DetalhesLivro = () => {
           <div className="container-detalhes__descricoes">
             <h2 className="descricoes-titulo">{livro?.titulo}</h2>
             <p>{livro?.descricao}</p>
-            <p className="descricoes-autor">Por: Kheronn Kheneddy</p>
+            <SobreAutor
+              autorId={livro.autor}
+              nome
+            />
             <h3>Selecione o formato de seu livro</h3>
             <div className="container-detalhes__descricoes-grupo-opcoes">
               <AbGrupoOpcoes
@@ -52,8 +68,8 @@ const DetalhesLivro = () => {
             </div>
             <span>*Você terá acesso às futuras atualizações do livro.</span>
             <AbInputQuantidade
-              onChange={() => { }}
-              value={1}
+              onChange={setQuatidade}
+              value={quantidade}
             />
             <AbBotao texto="Comprar" />
           </div>

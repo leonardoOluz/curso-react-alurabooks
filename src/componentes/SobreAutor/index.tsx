@@ -5,10 +5,11 @@ import Loader from "../Loader";
 import { IAutor } from "../../interfaces/IAutor";
 
 interface SobreAutorProps {
-  autorId: number
+  autorId: number,
+  nome?: boolean
 }
 
-const SobreAutor = ({ autorId }: SobreAutorProps) => {
+const SobreAutor = ({ autorId, nome = false }: SobreAutorProps) => {
   const { data: autor, isLoading } = useQuery<IAutor>({
     queryKey: ['autor', autorId],
     queryFn: () => obterAutorPorID(autorId)
@@ -16,6 +17,10 @@ const SobreAutor = ({ autorId }: SobreAutorProps) => {
 
   if (isLoading || !autor) {
     return <Loader />
+  }
+
+  if(nome){
+    return <p className="descricoes-autor">Por: {autor.nome}</p>
   }
 
   return <SobreTitulo

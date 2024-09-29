@@ -1,29 +1,22 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import TituloPrincipal from "../../componentes/TituloPrincipal"
-import { obterCategoriaPorSlug } from "../../http";
 import Loader from "../../componentes/Loader";
-import { useQuery } from "@tanstack/react-query";
-import { ICategaria } from "../../interfaces/ICategaria";
 import ListaLivros from "../../componentes/ListaLivros";
+import { ICategaria } from "../../interfaces/ICategaria";
 
 const Categoria = () => {
-  const params = useParams()
+  const location = useLocation();
+  const categoria: ICategaria = location.state;
 
-  const { data: categoria, isLoading } = useQuery<ICategaria>({
-    queryKey: ['categoriaPorSlug', params.slug],
-    queryFn: () => obterCategoriaPorSlug(params.slug || '')
-  })
-
-
-  if (isLoading) {
+  if (!categoria) {
     return (
       <Loader />
     )
   }
 
   return (<section>
-    <TituloPrincipal texto={categoria?.nome ?? ""} />
-    <ListaLivros categoria={categoria!}/>
+    <TituloPrincipal texto={categoria.nome ?? ""} />
+    <ListaLivros categoria={categoria} />
   </section>
   )
 }
