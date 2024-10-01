@@ -2,4 +2,5 @@ export interface IAutor {
   id: number;
   nome: string;
   sobre: string;
+  __typename?: string;
 }

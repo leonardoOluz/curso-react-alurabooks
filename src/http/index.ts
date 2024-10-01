@@ -73,7 +73,9 @@ export const obterProdutosPorCategoria = async (
   return data;
 };
 
-export const obterLivroPorSlug = async (slug: string): Promise<ILivro | null> => {
+export const obterLivroPorSlug = async (
+  slug: string
+): Promise<ILivro | null> => {
   const { data } = await http.get<ILivro[]>("/livros", {
     params: {
       slug,
@@ -87,11 +89,12 @@ export const obterLivroPorSlug = async (slug: string): Promise<ILivro | null> =>
   return data[0];
 };
 
-export const obterAutorPorID = async (autorId: number) => {
+export const obterAutorPorID = async (autorId: number): Promise<IAutor> => {
   try {
     const { data } = await http.get<IAutor>(`/autores/${autorId}`);
     return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    throw new Error("Erro de requisição");
   }
 };

@@ -3,4 +3,5 @@ export interface IOpcaoCompra {
     titulo: string
     preco: number
     formatos?: string[]
+    __typename?: string
 }

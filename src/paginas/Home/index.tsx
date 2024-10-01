@@ -6,21 +6,20 @@ import Titulo from "../../componentes/Titulo"
 import Loader from "../../componentes/Loader"
 import { AbCampoTexto } from "ds-alurabooks"
 import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { obterPublic } from "../../http"
-import { ILivro } from "../../interfaces/ILivro"
+// import { useQuery } from "@tanstack/react-query"
+// import { obterPublic } from "../../http"
+// import { ILivro } from "../../interfaces/ILivro"
 import './Home.css'
+import { useQueryDestaques } from "../../Graphql/Livros/hoos"
 
 const Home = () => {
     const [busca, setBusca] = useState("");
-    const { data: lancamentos, isLoading: loaderLanca } = useQuery<ILivro[]>({
-        queryKey: ['livros'],
-        queryFn: (): Promise<ILivro[]> => obterPublic('lancamentos')
-    });
-    const { data: maisVendidos, isLoading: loaderMaisVendidos } = useQuery<ILivro[]>({
-        queryKey: ['maisVendidos'],
-        queryFn: (): Promise<ILivro[]> => obterPublic('mais-vendidos')
-    });
+
+    const { data, loading } = useQueryDestaques();
+
+    if (!loading) {
+        console.log(data)
+    }
     return (<section className="home">
         <Banner subtitulo="Encontre em nossa estante o que precisa para seu desenvolvimento!" titulo="Já sabe por onde começar?">
             <form className="buscar">
@@ -34,11 +33,11 @@ const Home = () => {
             </form>
         </Banner>
         {
-            !loaderLanca && !loaderMaisVendidos ? <>
+            !loading ? <>
                 <Titulo texto="ÚLTIMOS LANÇAMENTOS" />
-                <LivrosDestaque livros={lancamentos!} />
+                <LivrosDestaque livros={data!.destaques.lancamentos! || []} />
                 <Titulo texto="MAIS VENDIDOS" />
-                <LivrosDestaque livros={maisVendidos!} />
+                <LivrosDestaque livros={data!.destaques.maisVendidos! || []} />
             </> : <Loader />
         }
         <TagsCategorias />
