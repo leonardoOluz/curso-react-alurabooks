@@ -17,9 +17,6 @@ const Home = () => {
 
     const { data, loading } = useQueryDestaques();
 
-    if (!loading) {
-        console.log(data)
-    }
     return (<section className="home">
         <Banner subtitulo="Encontre em nossa estante o que precisa para seu desenvolvimento!" titulo="Já sabe por onde começar?">
             <form className="buscar">

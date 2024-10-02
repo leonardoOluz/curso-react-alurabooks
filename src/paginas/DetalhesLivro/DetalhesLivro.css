@@ -59,3 +59,9 @@
     flex-direction: column;
     margin: 24px auto;
 }
+
+.detalheslivro .tags {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+}

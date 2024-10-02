@@ -70,6 +70,7 @@ export const OBTER_LIVRO = gql`
         preco
       }
       tags {
+        id
         nome
       }
     }

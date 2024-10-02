@@ -1,11 +1,10 @@
 import TituloPrincipal from "../../componentes/TituloPrincipal";
 import Loader from "../../componentes/Loader";
-import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade } from "ds-alurabooks";
+import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade, AbTag } from "ds-alurabooks";
 import { useParams } from "react-router-dom";
 import { formatador } from "../../utils/formatador-moeda";
 import "./DetalhesLivro.css";
 import SobreTitulo from "../../componentes/SobreTitulo";
-import SobreAutor from "../../componentes/SobreAutor";
 import { useState } from "react";
 import { useLivro } from "../../Graphql/Livros/hoos";
 
@@ -13,19 +12,15 @@ const DetalhesLivro = () => {
   const [quantidade, setQuatidade] = useState<number>(0);
   const { slug } = useParams();
 
-  const { data, loading } = useLivro(slug || '')
+  const { data, loading, error } = useLivro(slug || '')
 
-  /* const { data: livro, isLoading, error } = useQuery<ILivro | null, AxiosError>({
-    queryKey: ['livro'],
-    queryFn: () => obterLivroPorSlug(slug!)
-  }) */
-
-  if (data?.livro === null) {
-    return <h1>Livro não encontrado!</h1>
+  if (data === undefined) {
+    return <h1>Algo Ocorreu errado</h1>
   }
 
-  if (!data?.livro) {
-    return <p>Ops, Algo de errado ocorreu!</p>
+  if (error) {
+    console.log(data === undefined)
+    return <h1>Livro não encontrado!</h1>
   }
 
   if (loading) {
@@ -52,10 +47,7 @@ const DetalhesLivro = () => {
           <div className="container-detalhes__descricoes">
             <h2 className="descricoes-titulo">{data.livro?.titulo}</h2>
             <p>{data.livro?.descricao}</p>
-            <SobreAutor
-              autorId={data.livro.autorId}
-              nome
-            />
+            <p className="descricoes-autor">Por: {data.livro.autor.nome}</p>
             <h3>Selecione o formato de seu livro</h3>
             <div className="container-detalhes__descricoes-grupo-opcoes">
               <AbGrupoOpcoes
@@ -73,13 +65,17 @@ const DetalhesLivro = () => {
           </div>
         </div>
         <div className="detalheslivro__sobre">
-          <SobreAutor
-            autorId={data.livro.autorId}
+          <SobreTitulo
+            texto={data.livro.autor.sobre}
+            titulo="Sobre o Autor"
           />
           <SobreTitulo
             titulo="Sobre o Livro"
             texto={data.livro.sobre}
           />
+        </div>
+        <div className="tags">
+          {data?.livro?.tags.map(tag => <AbTag key={tag.id} texto={tag.nome} contexto="secundario"/>)}
         </div>
       </section>
     </>
