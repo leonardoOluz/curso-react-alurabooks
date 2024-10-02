@@ -1,15 +1,16 @@
-import { useCarrinho } from "../../Graphql/carrinho/hooks";
 import TituloPrincipal from "../../componentes/TituloPrincipal";
 import { AbBotao } from "ds-alurabooks";
 import "./Carrinho.css";
 import { Link } from "react-router-dom";
 import ItemCarrinho from "../../componentes/ItemCarrinho";
 import { formatador } from "../../utils/formatador-moeda";
+import { useCarrinhoContext } from "../../contextApi/hooks/useCarrinhoContext";
 
 const Carrinho = () => {
-  const { data } = useCarrinho();
 
-  if (!data) {
+  const { carrinho } = useCarrinhoContext()
+
+  if (!carrinho) {
     return (<h1>Erro</h1>)
   }
 
@@ -19,12 +20,12 @@ const Carrinho = () => {
       <form>
         <h2 className="carrinho__titulo-principal">Itens selecionados</h2>
         <ul>
-          {data.carrinho.itens.map(item => <ItemCarrinho key={item.livro.id} item={item} />)}
+          {carrinho?.itens.map(item => <ItemCarrinho key={item.livro.id} item={item} />)}
           <Link to="/">Continuar comprando</Link>
         </ul>
         <footer className="carrinho_rodape-formulario">
           <h3>Total da compra</h3>
-          <p>{formatador.format(data?.carrinho?.total)}</p>
+          <p>{formatador.format(carrinho?.total)}</p>
           <AbBotao
             onClick={() => { }}
             texto="Finalizar compra"
