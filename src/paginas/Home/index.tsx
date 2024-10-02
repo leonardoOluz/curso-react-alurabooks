@@ -10,7 +10,7 @@ import { useState } from "react"
 // import { obterPublic } from "../../http"
 // import { ILivro } from "../../interfaces/ILivro"
 import './Home.css'
-import { useQueryDestaques } from "../../Graphql/Livros/hoos"
+import { useQueryDestaques } from "../../Graphql/Livros/hooks"
 
 const Home = () => {
     const [busca, setBusca] = useState("");

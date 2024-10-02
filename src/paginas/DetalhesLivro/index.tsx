@@ -6,7 +6,7 @@ import { formatador } from "../../utils/formatador-moeda";
 import "./DetalhesLivro.css";
 import SobreTitulo from "../../componentes/SobreTitulo";
 import { useState } from "react";
-import { useLivro } from "../../Graphql/Livros/hoos";
+import { useLivro } from "../../Graphql/Livros/hooks";
 
 const DetalhesLivro = () => {
   const [quantidade, setQuatidade] = useState<number>(0);

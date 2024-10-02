@@ -3,7 +3,7 @@ import CardLivro from "../CardLivro";
 import { ICategaria } from "../../interfaces/ICategaria";
 import { AbCampoTexto } from "ds-alurabooks";
 import { useEffect, useState } from "react";
-import { useQueryLivros } from "../../Graphql/Livros/hoos";
+import { useQueryLivros } from "../../Graphql/Livros/hooks";
 import { useReactiveVar } from "@apollo/client";
 import { filtroLivrosVar, livrosVar } from "../../Graphql/Livros/state";
 

@@ -1,0 +1,48 @@
+.carrinho {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    font-family: Poppins;
+}
+
+.carrinho__titulo-itens,
+.carrinho .carrinho__lista-itens figure {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.carrinho .carrinho__titulo-principal {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    margin: 0;
+}
+
+.carrinho form ul {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #000000;
+}
+
+.carrinho form .carrinho_rodape-formulario {
+    margin: 1.5rem 0;
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.carrinho form .carrinho_rodape-formulario h3 {
+    color: rgba(235, 155, 0, 1);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 27px;
+}
+
+.carrinho form .carrinho_rodape-formulario p {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    color: rgba(0, 47, 82, 1);
+}
