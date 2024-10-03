@@ -1,4 +1,7 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import {
+  ApolloClient, ApolloProvider,
+  InMemoryCache, ApolloLink} from "@apollo/client";
+import useObterToken from "../../hooks/useObterToken";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -14,5 +17,15 @@ const ABApolloClient = ({ children }: Props) => {
     {children}
   </ApolloProvider>)
 }
+
+export const outLink = new ApolloLink((operation, forward) => {
+  const token = useObterToken();
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  })
+  return forward(operation)
+})
 
 export default ABApolloClient

@@ -1,11 +1,9 @@
 import axios from "axios";
 import useObterToken from "../hooks/useObterToken";
-// import { history } from "../App";
 import { ICategaria } from "../interfaces/ICategaria";
 import { ILivro } from "../interfaces/ILivro";
 import { IAutor } from "../interfaces/IAutor";
-// import { useNavigate } from "react-router-dom";
-// const navegar = useNavigate();
+import { useRedirecToLogin } from "../hooks/useRedirectToLogin";
 
 const http = axios.create({
   baseURL: "http://localhost:8000",
@@ -36,7 +34,8 @@ http.interceptors.response.use(
   function (error) {
     console.log("Observando o erro de response do interceptors do axios");
     if (error.response?.status === 401) {
-      // navegar("/");
+      useRedirecToLogin();
+      // navegar("/"); Criar hooks personalizado no http para uso do navigate do react-router-dom
     }
     return Promise.reject(error);
   }

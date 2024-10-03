@@ -1,5 +1,5 @@
 import { AbInputQuantidade } from "ds-alurabooks"
-import { IItemCarrinho } from "../../interfaces/IItens";
+import { IItemCarrinho } from "../../interfaces/IItemCarrinho";
 import { formatador } from "../../utils/formatador-moeda";
 import "./ItemCarrinho.css"
 

@@ -1,4 +1,4 @@
-import { IItemCarrinho } from "./IItens";
+import { IItemCarrinho } from "./IItemCarrinho";
 
 export interface ICarrinho {
   total: number;

@@ -7,9 +7,15 @@ import "./DetalhesLivro.css";
 import SobreTitulo from "../../componentes/SobreTitulo";
 import { useState } from "react";
 import { useLivro } from "../../Graphql/Livros/hooks";
+import { useCarrinhoContext } from "../../contextApi/hooks/useCarrinhoContext";
 
 const DetalhesLivro = () => {
-  const [quantidade, setQuatidade] = useState<number>(0);
+  const [quantidade, setQuatidade] = useState<number>(1);
+
+  const [opcao, setOpcao] = useState<AbGrupoOpcao>()
+
+  const { adicionarItemCarrinho } = useCarrinhoContext();
+
   const { slug } = useParams();
 
   const { data, loading, error } = useLivro(slug || '')
@@ -36,6 +42,22 @@ const DetalhesLivro = () => {
     }))
     : []
 
+  const aoAdicionarItemAoCarrinho = () => {
+    if (!data?.livro) {
+      return;
+    };
+    const opcaoCompra = data.livro.opcoesCompra.find(op => op.id === opcao?.id)
+    if (!opcaoCompra) {
+      alert('Selecione uma opção de compra')
+      return
+    }
+    adicionarItemCarrinho({
+      livro: data.livro,
+      opcaoCompra: opcaoCompra,
+      quantidade
+    })
+  }
+
   return (
     <>
       <TituloPrincipal texto="Detalhes do livro" />
@@ -52,7 +74,7 @@ const DetalhesLivro = () => {
             <div className="container-detalhes__descricoes-grupo-opcoes">
               <AbGrupoOpcoes
                 opcoes={opcoes}
-                onChange={() => { }}
+                onChange={setOpcao}
                 valorPadrao={opcoes[0]}
               />
             </div>
@@ -61,7 +83,7 @@ const DetalhesLivro = () => {
               onChange={setQuatidade}
               value={quantidade}
             />
-            <AbBotao texto="Comprar" />
+            <AbBotao texto="Comprar" onClick={aoAdicionarItemAoCarrinho} />
           </div>
         </div>
         <div className="detalheslivro__sobre">
@@ -75,7 +97,7 @@ const DetalhesLivro = () => {
           />
         </div>
         <div className="tags">
-          {data?.livro?.tags.map(tag => <AbTag key={tag.id} texto={tag.nome} contexto="secundario"/>)}
+          {data?.livro?.tags.map(tag => <AbTag key={tag.id} texto={tag.nome} contexto="secundario" />)}
         </div>
       </section>
     </>

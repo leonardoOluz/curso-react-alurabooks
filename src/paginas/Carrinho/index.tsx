@@ -1,10 +1,10 @@
 import TituloPrincipal from "../../componentes/TituloPrincipal";
-import { AbBotao } from "ds-alurabooks";
-import "./Carrinho.css";
-import { Link } from "react-router-dom";
 import ItemCarrinho from "../../componentes/ItemCarrinho";
+import { AbBotao } from "ds-alurabooks";
+import { Link } from "react-router-dom";
 import { formatador } from "../../utils/formatador-moeda";
 import { useCarrinhoContext } from "../../contextApi/hooks/useCarrinhoContext";
+import "./Carrinho.css";
 
 const Carrinho = () => {
 
