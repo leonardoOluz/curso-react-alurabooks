@@ -1,7 +1,7 @@
 import TituloPrincipal from "../../componentes/TituloPrincipal";
 import Loader from "../../componentes/Loader";
 import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade, AbTag } from "ds-alurabooks";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { formatador } from "../../utils/formatador-moeda";
 import "./DetalhesLivro.css";
 import SobreTitulo from "../../componentes/SobreTitulo";
@@ -11,6 +11,8 @@ import { useCarrinhoContext } from "../../contextApi/hooks/useCarrinhoContext";
 
 const DetalhesLivro = () => {
   const [quantidade, setQuatidade] = useState<number>(1);
+
+  const navegar = useNavigate();
 
   const [opcao, setOpcao] = useState<AbGrupoOpcao>()
 
@@ -56,6 +58,9 @@ const DetalhesLivro = () => {
       opcaoCompra: opcaoCompra,
       quantidade
     })
+
+    navegar("/minha-sacola")
+
   }
 
   return (

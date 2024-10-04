@@ -5,22 +5,24 @@ import { Link } from "react-router-dom";
 import { formatador } from "../../utils/formatador-moeda";
 import { useCarrinhoContext } from "../../contextApi/hooks/useCarrinhoContext";
 import "./Carrinho.css";
+import LoaderSpinner from "../../componentes/LoaderSpinner";
 
 const Carrinho = () => {
 
-  const { carrinho } = useCarrinhoContext()
+  const { carrinho, carregando } = useCarrinhoContext()
 
   if (!carrinho) {
-    return (<h1>Erro</h1>)
+    return (<h1>Carregando...</h1>)
   }
 
   return (<>
     <TituloPrincipal texto="Minha sacola" />
     <section className="carrinho">
-      <form>
+      {carregando && <LoaderSpinner />}
+      <form onSubmit={e => e.preventDefault()}>
         <h2 className="carrinho__titulo-principal">Itens selecionados</h2>
         <ul>
-          {carrinho?.itens.map(item => <ItemCarrinho key={item.livro.id} item={item} />)}
+          {carrinho?.itens.map((item, index) => <ItemCarrinho key={index} item={item} />)}
           <Link to="/">Continuar comprando</Link>
         </ul>
         <footer className="carrinho_rodape-formulario">

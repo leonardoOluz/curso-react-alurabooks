@@ -14,9 +14,16 @@
     display: inline-block;
 }
 
+.ab-navbar .acoes {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .ab-navbar {
     padding: 0 80px;
 }
+
 .ab-navbar .navegacao {
     flex-grow: 1;
 }
@@ -59,6 +66,7 @@
 .ab-navbar ul.submenu li {
     min-width: 100%;
 }
+
 .ab-navbar ul li:hover .submenu {
     display: block;
 }

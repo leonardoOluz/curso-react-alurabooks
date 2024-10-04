@@ -1,15 +1,17 @@
-import { Link, useNavigate } from "react-router-dom"
-import BotaoNavegacao from "../BotaoNavegacao"
-import ModalCadastroUsuario from "../ModalCadastroUsuario"
-import logo from './assets/logo.png'
-import usuario from './assets/usuario.svg'
-import './BarraNavegacao.css'
-import ModalLoginUsuario from "../ModalLoginUsuario"
-import useObterToken from "../../hooks/useObterToken"
-import useLimparToken from "../../hooks/useLimparToken"
-import { ICategaria } from "../../interfaces/ICategaria"
-import { gql, useQuery } from "@apollo/client"
-import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import BotaoNavegacao from "../BotaoNavegacao";
+import ModalCadastroUsuario from "../ModalCadastroUsuario";
+import logo from './assets/logo.png';
+import usuario from './assets/usuario.svg';
+import sacola from './assets/sacola.svg';
+import './BarraNavegacao.css';
+import ModalLoginUsuario from "../ModalLoginUsuario";
+import useObterToken from "../../hooks/useObterToken";
+import useLimparToken from "../../hooks/useLimparToken";
+import { ICategaria } from "../../interfaces/ICategaria";
+import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+import CarrinhoFLutuante from "../CarrinhoFlutuante";
 
 const OBTER_CATEGORIAS = gql`
   query ObterCategoria {
@@ -24,11 +26,14 @@ const OBTER_CATEGORIAS = gql`
 const BarraNavegacao = () => {
   const [modalCadastroAberta, setModalCadastroAberta] = useState(false);
   const [modalLoginAberta, setModalLoginAberta] = useState(false);
+  const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
   const { data } = useQuery<{ categorias: ICategaria[] }>(OBTER_CATEGORIAS);
   const token = useObterToken();
   const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token() !== null);
+  
   const deslogar = useLimparToken()
   const navegar = useNavigate();
+
   const aoEfetuarLogin = () => {
     setModalLoginAberta(false)
     setUsuarioEstaLogado(true)
@@ -94,6 +99,15 @@ const BarraNavegacao = () => {
       {usuarioEstaLogado && <>
         <li>
           <Link to="/minha-conta/pedidos">Minha conta</Link>
+        </li>
+        <li>
+          <BotaoNavegacao
+            imagemSrc={sacola}
+            texto="Minha sacola"
+            textoAltSrc="Icone representando uma sacola"
+            onClick={() => setMostrarCarrinho(p => p = !p)}
+          />
+          {mostrarCarrinho && <CarrinhoFLutuante aoAbrirSacola={() => setMostrarCarrinho(false)}/>}
         </li>
         <li>
           <BotaoNavegacao

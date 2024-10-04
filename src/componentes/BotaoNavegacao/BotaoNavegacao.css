@@ -10,3 +10,9 @@
 .btn-nav img {
     margin-right: 12px;
 }
+
+@media screen and (max-width: 930px) {
+    .btn-nav .btn-nav_texto {
+        display: none;
+    }
+}
